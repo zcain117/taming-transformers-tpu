@@ -7,6 +7,9 @@ from torchvision.datasets import MNIST
 from torch.utils.data import DataLoader, random_split
 import pytorch_lightning as pl
 
+import torch_xla.utils.utils as xu
+import torch_xla.core.xla_model as xm
+
 class LitAutoEncoder(pl.LightningModule):
 
     def __init__(self):
@@ -26,11 +29,11 @@ class LitAutoEncoder(pl.LightningModule):
         # in lightning, forward defines the prediction/inference actions
         embedding = self.encoder(x)
         return embedding
-
     def training_step(self, batch, batch_idx):
         # training_step defined the train loop.
         # It is independent of forward
         x, y = batch
+        myzeros = torch.zeros([256, 8192]).to(x)
         x = x.view(x.size(0), -1)
         z = self.encoder(x)
         x_hat = self.decoder(z)
@@ -42,7 +45,6 @@ class LitAutoEncoder(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
         return optimizer
-
 
 batch_size=6
 img_size=256
