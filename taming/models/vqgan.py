@@ -18,6 +18,7 @@ class VQModel(pl.LightningModule):
                  sane_index_shape=False,  # tell vector quantizer to return indices as bhw
                  ):
         super().__init__()
+        print("\n\n\nIn the init for VQModel...\n\n\n")
         self.save_hyperparameters()
         self.args = args     
         
@@ -42,9 +43,12 @@ class VQModel(pl.LightningModule):
         self.quant_conv = torch.nn.Conv2d(args.z_channels, args.embed_dim, 1)
         self.post_quant_conv = torch.nn.Conv2d(args.embed_dim, args.z_channels, 1)
 
+        print("\n\n\nDone the init for VQModel...\n\n\n")
+
 
         if monitor is not None:
             self.monitor = monitor
+        print("\n\n\nDone the init monitor for VQModel...\n\n\n")
 
     def encode(self, x):
         print("\n\n\njust before encoder...\n\n\n")
