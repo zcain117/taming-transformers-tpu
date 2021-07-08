@@ -32,8 +32,9 @@ class LitAutoEncoder(pl.LightningModule):
     def training_step(self, batch, batch_idx):
         # training_step defined the train loop.
         # It is independent of forward
+        print("in training step...")
         x, y = batch
-        myzeros = torch.zeros([256, 8192]).to(x)
+        myzeros = torch.zeros([256, 8192], device=self.device)
         x = x.view(x.size(0), -1)
         z = self.encoder(x)
         x_hat = self.decoder(z)
