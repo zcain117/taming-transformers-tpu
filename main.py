@@ -232,6 +232,7 @@ if __name__ == "__main__":
     print("Setting batch size: {} learning rate: {:.2e}".format(model.hparams.batch_size, model.hparams.learning_rate))
     
     if not args.test:    
+        print("\n\n\njust before fit...\n\n\n")
         trainer.fit(model, train_dataloaders=train_loader, val_dataloaders=val_loader)
     else:
         trainer.test(model, dataloaders=val_loader)

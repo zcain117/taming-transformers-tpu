@@ -47,9 +47,13 @@ class VQModel(pl.LightningModule):
             self.monitor = monitor
 
     def encode(self, x):
+        print("\n\n\njust before encoder...\n\n\n")
         h = self.encoder(x)
+        print("\n\n\njust before quant_conv...\n\n\n")
         h = self.quant_conv(h)
+        print("\n\n\njust before quantize...\n\n\n")
         quant, emb_loss, info = self.quantize(h)
+        print("\n\n\ndone quantize...\n\n\n")
         return quant, emb_loss, info
 
     def decode(self, quant):
@@ -73,6 +77,7 @@ class VQModel(pl.LightningModule):
         #    print('Step:', end='',flush=True)
         #print('Step: %s' %self.global_step)        
         
+        print("\n\n\nin training step...\n\n\n")
         x, _ = batch
         xrec, qloss = self(x)
         if optimizer_idx == 0:
