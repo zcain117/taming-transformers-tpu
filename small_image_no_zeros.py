@@ -12,7 +12,7 @@ import torch_xla.core.xla_model as xm
 
 
 BATCH_SIZE = 6
-IMAGE_SIZE = 256
+IMAGE_SIZE = 28
 NUM_CHANNELS = 3
 
 

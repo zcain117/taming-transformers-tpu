@@ -12,7 +12,7 @@ import torch_xla.core.xla_model as xm
 
 
 BATCH_SIZE = 6
-IMAGE_SIZE = 256
+IMAGE_SIZE = 28
 NUM_CHANNELS = 3
 
 
@@ -41,7 +41,7 @@ class LitAutoEncoder(pl.LightningModule):
         print("in training step...")
         x, y = batch
         # Does not seem to affect the segfault.
-        #myzeros = torch.zeros([256, 8192], device=self.device)
+        myzeros = torch.zeros([256, 8192], device=self.device)
         x = x.view(x.size(0), -1)
         z = self.encoder(x)
         x_hat = self.decoder(z)
